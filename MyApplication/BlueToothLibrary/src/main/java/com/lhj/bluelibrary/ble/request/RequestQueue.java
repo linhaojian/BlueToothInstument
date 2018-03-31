@@ -266,8 +266,8 @@ public class RequestQueue {
                                 bytelist.clear();
                             }
                         }
-                        queue.remove(0);
                         if(queue.size()>0){
+                            queue.remove(0);
                             Collections.sort(queue);
                             sendCommand(queue.get(0));
                         }
