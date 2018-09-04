@@ -49,14 +49,14 @@ public class OADPractitioner extends Service {
     private short lenA,lenB,ver,blockNumber;//ver : 0-A ,1-B
     private byte[] vluBytesA,vluBytesB;
     private byte[] fileBytesA,fileBytesB;
-    private boolean isSendZoo,isConInter,isUpGra;
+    private volatile boolean isSendZoo,isConInter,isUpGra;
     private int blockBufferCount;
-    private boolean isUpgradeSuccess;
+    private volatile boolean isUpgradeSuccess;
     private Object mLock = new Object();
     private OADThread oadThread;
-    private boolean isBlockThread;
+    private volatile boolean isBlockThread;
     private Timer conOutTimer;
-    private boolean isNotConIntervalService;
+    private volatile boolean isNotConIntervalService;
 
     @Override
     public void onCreate() {
@@ -454,7 +454,9 @@ public class OADPractitioner extends Service {
             waitLock();
             while(!isUpGra&&!isBlockThread){
                 dealCharateristicsReturn(characteristic);
-                waitLock();
+                if(!isUpGra){
+                    waitLock();
+                }
             }
             if(isBlockThread){ return; }
             if(ver==1){//B
