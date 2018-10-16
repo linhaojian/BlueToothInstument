@@ -2,6 +2,7 @@ package com.lhj.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.lhj.bluelibrary.ble.bluetooth.BlueToothOperator;
 import com.lhj.bluelibrary.ble.bluetooth.result.OnSmartBluetooth;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private void initBlue(){
         //初始化
         BlueToothOperator.getInstance().initSDK(this);
+        initListeners();
+        scan();
     }
 
     private void initDestroy(){
@@ -39,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         //初始化服务，特征，使能 ---- > UUID
         BlueToothOperator.getInstance().getSmartBluetooth().noti("","","");
         //过滤条件
-        BlueToothOperator.getInstance().getSmartBluetooth().filter(BLEContacts.SCAN_NAME,new ArrayList<String>());
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("cb778415609d26bbb04c5bfdace3d9f7");
+        BlueToothOperator.getInstance().getSmartBluetooth().filter(BLEContacts.SCAN_UUID,list);
         //循环搜索
         BlueToothOperator.getInstance().getSmartBluetooth().startScan(3000);
     }
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDeviceResult(ScanEntity scanEntity) {
-
+                Log.e("linhaojian",""+scanEntity.toString());
             }
 
             @Override

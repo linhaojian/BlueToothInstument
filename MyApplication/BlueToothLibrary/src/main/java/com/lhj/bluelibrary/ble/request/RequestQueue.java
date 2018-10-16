@@ -234,7 +234,7 @@ public class RequestQueue {
                 ;
     }
 
-    public void filter(final byte[] datas){
+    public void filter(final byte[] datas, final CommandFilter commandFilter){
         removeCommands(datas)
         .subscribe(new Action1<FilterEntity>() {
             @Override
@@ -242,7 +242,8 @@ public class RequestQueue {
                 boolean isRe = false;
                 if(fil.getRequestEntitys()!=null&&fil.getRequestEntitys().getRequestEntitys()!=null&&fil.getRequestEntitys().getRequestEntitys().size()>0){
                     for(int i=0;i<fil.getRequestEntitys().getRequestEntitys().size();){
-                        if(fil.getRequestEntitys().getRequestEntitys().get(i).getDatas()[0]==datas[0]){
+//                        if(fil.getRequestEntitys().getRequestEntitys().get(i).getDatas()[0]==datas[0]){
+                          if(commandFilter.filter(fil.getRequestEntitys().getRequestEntitys().get(i).getDatas(),datas)){
                             isRe = true;
                             Log.e("linhaojian","datas : "+Arrays.toString(datas));
                             bytelist.add(datas);
@@ -297,6 +298,10 @@ public class RequestQueue {
             }
         })
           .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public interface CommandFilter{
+        boolean filter(byte[] send_datas,byte[] accept_dates);
     }
 
 }

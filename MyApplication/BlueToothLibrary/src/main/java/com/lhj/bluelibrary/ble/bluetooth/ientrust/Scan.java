@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.lhj.bluelibrary.ble.bluetooth.util.BLEContacts;
 import com.lhj.bluelibrary.ble.bluetooth.entrust.IScan;
@@ -130,6 +131,7 @@ public class Scan implements IScan {
             scanEntity.setScanRecoder(scanRecord);
             scanEntity.setScanRecodestr(Tools.splitType(Tools.splitScanRecode(Tools.bytesToHexString(scanRecord))));
             String uuid = Tools.splitType(Tools.splitScanRecode(Tools.bytesToHexString(scanRecord)))[0];
+            Log.e("linhaojian","uuid: "+uuid);
             if(fitype==BLEContacts.SCAN_MAC){
                 if(filters.contains(device.getAddress())){
                     scanResult.getDevices(scanEntity);
