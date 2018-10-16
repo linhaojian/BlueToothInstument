@@ -42,8 +42,8 @@ public class RxCommand implements CommandDispose{
     }
 
     @Override
-    public void filterCommand(byte[] datas) {
-        requestQueue.filter(datas);
+    public void filterCommand(byte[] datas, RequestQueue.CommandFilter commandFilter) {
+        requestQueue.filter(datas,commandFilter);
     }
 
     @Override

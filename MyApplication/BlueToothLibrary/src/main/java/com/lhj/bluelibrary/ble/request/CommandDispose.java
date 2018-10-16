@@ -15,7 +15,7 @@ public interface CommandDispose {
 
     abstract void disconnectClear();
 
-    abstract void filterCommand(byte[] datas);
+    abstract void filterCommand(byte[] datas,RequestQueue.CommandFilter commandFilter);
 
     abstract Observable<byte[]> notifi();
 
