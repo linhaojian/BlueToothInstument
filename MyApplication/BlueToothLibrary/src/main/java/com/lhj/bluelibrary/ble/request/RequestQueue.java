@@ -3,7 +3,9 @@ package com.lhj.bluelibrary.ble.request;
 
 import android.util.Log;
 
-import com.lhj.bluelibrary.ble.BluetoothCombineOperator;
+
+import com.lhj.bluelibrary.ble.bluetooth.BlueToothOperator;
+import com.lhj.bluelibrary.ble.bluetooth.ientrust.SmartBluetooth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +123,7 @@ public class RequestQueue {
         for(int i=0;i<list.size();){
             Log.i("linhaojian","sendCommand : "+Arrays.toString(list.get(i).getDatas()));
             if(!isConnect()){return;}
-            boolean write = BluetoothCombineOperator.getInstance().writeCommand(list.get(i).getDatas(),true);
+            boolean write = BlueToothOperator.getInstance().getSmartBluetooth().writeCommand(list.get(i).getDatas(),true);
             if(write){
                 if(list.get(i).getReqstatus()==RequestEntity.bleRequestStatus.write_not_back){
                     list.remove(i);
@@ -162,7 +164,7 @@ public class RequestQueue {
     }
 
     private boolean isConnect(){
-        return BluetoothCombineOperator.getInstance().isConnect();
+        return BlueToothOperator.getInstance().getSmartBluetooth().getConnectStatus()== SmartBluetooth.CONNECTTED;
     }
 
     private void startTimer(){
