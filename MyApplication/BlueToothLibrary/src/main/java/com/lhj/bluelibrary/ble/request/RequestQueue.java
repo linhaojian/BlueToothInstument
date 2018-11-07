@@ -272,7 +272,9 @@ public class RequestQueue {
                         if(queue.size()>0){
                             queue.remove(0);
                             Collections.sort(queue);
-                            sendCommand(queue.get(0));
+                            if(queue.size()>0){
+                                sendCommand(queue.get(0));
+                            }
                         }
                     }else{
                     }
