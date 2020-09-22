@@ -25,4 +25,5 @@ public interface ISmartBluetooth {
     void setOnSmartBluetooth(OnSmartBluetooth onSmartBluetooth);
     void setReConnect(boolean isReConnect);
     int getConnectStatus();
+    void requestMtu(int mtu);
 }

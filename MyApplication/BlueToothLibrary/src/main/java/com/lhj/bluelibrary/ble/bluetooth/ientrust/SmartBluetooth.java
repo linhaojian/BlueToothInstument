@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -232,6 +233,15 @@ public class SmartBluetooth implements ISmartBluetooth {
     @Override
     public int getConnectStatus() {
         return connectStatus;
+    }
+
+    @Override
+    public void requestMtu(int mtu) {
+        if(bluetoothGatt!=null){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                bluetoothGatt.requestMtu(mtu);
+            }
+        }
     }
 
     private void registerBlueReceiver(){
